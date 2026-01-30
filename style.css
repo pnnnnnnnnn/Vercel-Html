@@ -85,7 +85,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-    padding: 25px 0 20px 0;
+    padding: 0px 0 20px 0;
 }
 
 /* 1. 商品卡片本體*/
@@ -1078,11 +1078,11 @@ section {
 /* 2. 修正標題本身的邊距 */
 #category-title {
     margin: 0 !important;
-    /* 移除標題所有預設邊距 */
-    padding: 10px 0;
-    /* 改用 padding 微調手感 */
+    padding: 20px 0;      /* 增加一點上下間距，視覺上比較舒服 */
     font-size: 2rem;
     line-height: 1.1;
+    text-align: center;   /* 👈 關鍵：加入這一行讓文字置中 */
+    width: 100%;          /* 確保它佔滿整行寬度 */
 }
 
 .sidebar ul li a.active {
