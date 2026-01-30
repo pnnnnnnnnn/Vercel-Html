@@ -176,62 +176,53 @@ window.filterCategory = (targetName) => {
                 ? `<p class="product-price sale"><span class="old-price">$ ${item.originalPrice}</span> <span class="new-price">$ ${item.price}</span></p>`
                 : `<p class="product-price">$ ${item.price}</p>`;
 
+            const categoriesHtml = item.categories.filter(c => c !== '全部').map(c => `<span class="category-pill">${c}</span>`).join('');
+
             container.innerHTML += `
-                <div class="product-card" style="position: relative;">
-                    ${hotBadge}
-                    <div class="product-info-top" onclick="openProductDetail(${originalIndex})" style="cursor: pointer;">
-                        <div class="product-img-container" style="height: 200px; display: flex; justify-content: center; align-items: center; background: #f8f8f8;">
-                            <img src="${item.image}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                <div class="product-card product-card-flip">
+                    <div class="product-card-inner">
+                        <div class="product-card-front">
+                            ${hotBadge}
+                            <div class="product-info-top">
+                                <div class="product-img-container" style="height: 200px; display: flex; justify-content: center; align-items: center; background: #f8f8f8;">
+                                    <img src="${item.image}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                </div>
+                                <h3>${item.name}</h3>
+                            </div>
+                            <div class="product-info-bottom">
+                                ${priceDisplay}
+                                <div class="product-card-actions">
+                                    <button class="add-to-cart" onclick="addToCart(${originalIndex})">加入購物車</button>
+                                    <button type="button" class="add-to-cart btn-detail" onclick="toggleCardFlip(this)">查看詳情</button>
+                                </div>
+                            </div>
                         </div>
-                        <h3>${item.name}</h3>
-                    </div>
-                    <div class="product-info-bottom">
-                        ${priceDisplay}
-                        <button class="add-to-cart" onclick="addToCart(${originalIndex})">加入購物車</button>
+                        <div class="product-card-back">
+                            <div class="product-card-back-content">
+                                <h3 class="detail-title">${item.name}</h3>
+                                <div class="detail-categories">${categoriesHtml}</div>
+                                <div class="detail-description-box"><p>${item.description}</p></div>
+                            </div>
+                            <div class="product-card-actions">
+                                <button type="button" class="btn-back" onclick="toggleCardFlip(this)">返回</button>
+                            </div>
+                        </div>
                     </div>
                 </div>`;
         }
     });
 };
 
-// 開啟商品詳情彈窗
-// --- 找到這一段並修改 ---
-window.openProductDetail = (index) => {
-    const item = products[index];
-    const detailContent = document.getElementById('detail-content');
-    if (!detailContent) return;
-
-    detailContent.innerHTML = `
-    <div class="col-md-6">
-        <img src="${item.image}" alt="${item.name}">
-    </div>
-    <div class="col-md-6">
-        <h2>${item.name}</h2>
-        <div class="category-pills">
-            ${item.categories.filter(c => c !== "全部").map(c => `<span class="category-pill">${c}</span>`).join('')}
-        </div>
-        
-        <h3>
-            <span class="price-symbol">$</span>
-            <span class="price-amount">${item.price}</span> 
-            <span class="special-offer-tag">🔥 限時特價</span>
-        </h3>
-        
-        <div class="detail-description-box">
-            <p><strong>💡 商品簡介</strong></p>
-            <p>${item.description}</p> 
-        </div>
-
-        <button class="add-to-cart" onclick="addToCart(${index}); closeProductDetail();">
-            <span>加入購物車</span>
-        </button>
-    </div>
-`;
-    document.getElementById('product-detail-modal').style.display = 'block';
-};
-
-window.closeProductDetail = () => {
-    document.getElementById('product-detail-modal').style.display = 'none';
+// 卡片翻轉：點擊詳情/返回切換；翻回正面時短暫加 no-hover
+window.toggleCardFlip = (btn) => {
+    const card = btn.closest('.product-card-flip');
+    if (!card) return;
+    const wasFlipped = card.classList.contains('flipped');
+    card.classList.toggle('flipped');
+    if (wasFlipped) {
+        card.classList.add('no-hover');
+        setTimeout(() => card.classList.remove('no-hover'), 500);
+    }
 };
 
 // ==========================================
