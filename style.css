@@ -826,7 +826,7 @@ footer p {
 
 
 /* 響應式調整：手機上看時全部居中 */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
 
     /* 1. 調整導覽列高度，改為自動撐開 */
     .navbar {
@@ -1039,33 +1039,6 @@ footer p {
         align-items: center;
     }
 
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    body {
-        padding-top: 30px !important; /* 增加這個值，把內容往下推 */
-    }
-
-    .navbar {
-        flex-wrap: wrap;
-        /* 允許換行 */
-        height: auto !important;
-        padding: 10px 20px;
-    }
-
-    .nav-right {
-        flex-direction: column;
-        /* 讓內容垂直分兩層 */
-        align-items: flex-end;
-        gap: 25px;
-    }
-
-    .user-welcome {
-        display: block !important;
-        font-size: 14px;
-        order: -1;
-        /* 強制讓名字排在最上面 */
-    }
 }
 
 /* 446-457 商品logo調整 */
