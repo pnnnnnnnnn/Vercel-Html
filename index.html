@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的購物商城</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images_icon/shopping-cart.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="announcement-bar">
+        <div class="marquee-wrapper">
+            <span class="marquee-text">
+                🎊 雙 12 盛典狂歡開跑！全館 88 折，消費滿 $1,2120元7折!!
+            </span>
+        </div>
+    </div>
+    <header class="navbar">
+        <div class="nav-left">
+            <img src="Logo/Logo.png" alt="logo" class="logo-img">
+            <span>購物商城</span>
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <div class="nav-right" id="nav-content">
+            <div class="nav-links">
+                <a href="#" onclick="filterCategory('熱門推薦'); toggleMenu(); return false;"
+                    style="color:red; font-weight: bold;">熱門推薦</a>
+                <a href="#" onclick="openAboutModal(); toggleMenu(); return false;"
+                    style="color: orange; font-weight: bold;">關於我們</a>
+            </div>
+
+            <div class="user-controls">
+                <div class="auth-buttons">
+                    <a href="#" class="login-register-btn" onclick="openAuthModal()">登入/註冊</a>
+                    <a href="#" id="historyBtn" onclick="showOrderHistory(); return false;"
+                        style="display:none;">購買紀錄</a>
+                    <a href="#" id="logoutBtn" onclick="handleLogout()" style="display: none;">登出</a>
+                </div>
+                <div class="cart-icon" onclick="openCart(); toggleMenu();">
+                    🛒 <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="text-center text-black p-1">
+        <h1 id="category-title">新品上市</h1>
+    </section>
+
+    <div class="main-content" style="display: flex; padding: 0px 1% 0px 5%; ">
+        <aside class="sidebar">
+            <h3 style="margin-bottom: 15px; font-size: 1.2rem; border-bottom: 2px solid #333;">商品分類</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="#" onclick="filterCategory('本季新品'); return false;"
+                        style="color: #d9534f; font-weight: bold;">🔥 本季新品</a></li>
+                <li><a href="#" onclick="filterCategory('限時特惠'); return false;">💰 限時特惠</a></li>
+                <hr>
+                <li><a href="#" onclick="filterCategory('全部'); return false;">所有商品</a></li>
+                <li><a href="#" onclick="filterCategory('上衣'); return false;">男裝上衣</a></li>
+                <li><a href="#" onclick="filterCategory('褲子'); return false;">休閒褲子</a></li>
+                <li><a href="#" onclick="filterCategory('外套'); return false;">防風外套</a></li>
+                <li><a href="#" onclick="filterCategory('機能運動'); return false;">機能運動</a></li>
+                <li><a href="#" onclick="filterCategory('配件'); return false;">潮流配件</a></li>
+            </ul>
+        </aside>
+
+        <main class="product-container" id="product-list" style="flex: 1;">
+        </main>
+    </div>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section contact-info">
+                <h4>聯絡團隊</h4>
+                <p>設計者：<a href="mailto:sf502026@gmail.com">sf502026@gmail.com</a></p>
+                <p>繪圖師：<a href="mailto:mythiquemon@gmail.com">mythiquemon@gmail.com</a></p>
+            </div>
+
+            <div class="footer-section brand-info">
+                <h3>我的購物商城</h3>
+                <p class="brand-slogan">提供最優質的城市休閒服飾</p>
+                <div class="practice-notice">
+                    <p>※ 練習用資訊：僅供個人開發作品展示</p>
+                    <p>不進行任何真實商業交易與金流操作</p>
+                </div>
+                <p class="copyright">&copy; 2026 版權所有</p>
+            </div>
+
+            <div class="footer-section tech-info">
+                <h4>使用技術</h4>
+                <p>
+                    前端： JS & CSS<br>
+                    後端：Firebase 資料庫<br>
+                    支付：綠界 ECPay 金流串接
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cart-modal" class="cart-modal" style="display:none;">
+        <div class="modal-overlay" onclick="closeCart()"></div>
+
+        <div class="cart-content">
+            <h2>您的購物車</h2>
+            <ul id="cart-items-list"></ul>
+            <div class="cart-footer">
+                <div id="cart-total" class="cart-total">總計：$ 0</div>
+                <hr>
+                <div class="cart-buttons">
+                    <button class="checkout-btn" onclick="checkout()">前往結帳</button>
+                    <button class="close-cart-btn" onclick="closeCart()">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="product-detail-modal" class="cart-modal" style="display:none;">
+        <div class="modal-overlay" onclick="closeProductDetail()"></div>
+        <div class="cart-content"
+            style="max-width: 700px; width: 90%; height: auto; max-height: 90vh; overflow-y: auto;">
+            <span class="close-btn" onclick="closeProductDetail()"
+                style="position: absolute; right: 20px; top: 10px; cursor: pointer; font-size: 28px;">&times;</span>
+            <div id="detail-content" class="row" style="padding: 20px; margin-top: 20px;">
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module" src="JavaScript.js"></script>
+    <!-- 登入/註冊彈出視窗 -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+
+            <h2 id="modalTitle">會員登入</h2>
+
+            <form id="authForm">
+                <div id="userInfoFields" style="display: none; margin-bottom: 10px;">
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" id="userName" placeholder="姓名" style="flex: 2; margin: 0;">
+                        <select id="userGender"
+                            style="flex: 1; border-radius: 5px; border: 1px solid #ddd; padding: 10px;">
+                            <option value="小姐">小姐</option>
+                            <option value="先生">先生</option>
+                        </select>
+                    </div>
+                </div>
+
+                <input type="email" id="authEmail" placeholder="電子信箱" required>
+                <input type="password" id="authPassword" placeholder="密碼" required>
+                <button type="submit" id="mainAuthBtn" class="auth-submit">登入</button>
+            </form>
+            <br>
+            <div class="auth-switch">
+                <button id="switchModeBtn">帳號申請</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
