@@ -21,10 +21,11 @@ body {
     position: fixed;
     left: 0;
     width: 100%;
-    height: 80px; /* 稍微增加高度，讓兩行排版不擁擠 */
+    height: 80px;
+    /* 稍微增加高度，讓兩行排版不擁擠 */
     top: 35px;
     z-index: 5000;
-    box-shadow: 0 2px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.05);
 }
 
 .nav-links {
@@ -47,7 +48,8 @@ body {
 /* 右側會員區塊 */
 .user-controls {
     display: flex !important;
-    flex-direction: row !important; /* 橫向排列 */
+    flex-direction: row !important;
+    /* 橫向排列 */
     /* 關鍵：強制垂直分兩行 */
     align-items: center !important;
     /* 靠右對齊 */
@@ -65,17 +67,20 @@ body {
 .auth-buttons {
     display: flex !important;
     align-items: center !important;
-    gap: 15px !important;          /* 購買紀錄與登出之間的距離 */
+    gap: 15px !important;
+    /* 購買紀錄與登出之間的距離 */
 }
 
 .cart-icon {
     display: flex !important;
     align-items: center !important;
     gap: 10px;
-    font-size: 24px !important; /* 放大圖示 */
+    font-size: 24px !important;
+    /* 放大圖示 */
     cursor: pointer;
-    margin: 0 !important; 
-    padding-right: 2px; /* 微調：若 icon 本身有留白，可用 padding 修正視覺上的平行 */
+    margin: 0 !important;
+    padding-right: 2px;
+    /* 微調：若 icon 本身有留白，可用 padding 修正視覺上的平行 */
 }
 
 /* 商品區塊排版 */
@@ -1058,14 +1063,15 @@ footer p {
 }
 
 .logo-img {
-    height: 65px; /* 讓圖片大一點，視覺上佔滿兩行感 */
+    height: 65px;
+    /* 讓圖片大一點，視覺上佔滿兩行感 */
     width: auto;
     object-fit: contain;
 }
 
 /* 1. 修正標題區塊的間距 */
 section {
-    margin-top: 110px !important;
+    margin-top: 40px !important;
     /* 公告欄 35px + Navbar 70px + 緩衝 5px */
     margin-bottom: 20px !important;
     padding: 10px 0 !important;
@@ -1078,11 +1084,14 @@ section {
 /* 2. 修正標題本身的邊距 */
 #category-title {
     margin: 0 !important;
-    padding: 20px 0;      /* 增加一點上下間距，視覺上比較舒服 */
+    padding: 20px 0;
+    /* 增加一點上下間距，視覺上比較舒服 */
     font-size: 2rem;
     line-height: 1.1;
-    text-align: center;   /* 👈 關鍵：加入這一行讓文字置中 */
-    width: 100%;          /* 確保它佔滿整行寬度 */
+    text-align: center;
+    /* 👈 關鍵：加入這一行讓文字置中 */
+    width: 100%;
+    /* 確保它佔滿整行寬度 */
 }
 
 .sidebar ul li a.active {
@@ -1102,8 +1111,10 @@ section {
 .user-welcome {
     color: #FFD700 !important;
     font-weight: bold;
-    font-size: 15px !important;    /* 縮小名字字體 (原本約18-20px) */
-    margin-right: 25px !important; /* 增加與「購買紀錄」之間的距離 */
+    font-size: 15px !important;
+    /* 縮小名字字體 (原本約18-20px) */
+    margin-right: 25px !important;
+    /* 增加與「購買紀錄」之間的距離 */
     white-space: nowrap;
 }
 
@@ -1126,7 +1137,8 @@ section {
 
 /* 3. 修正購買紀錄的顏色 (可選，避免它還是藍色) */
 #historyBtn {
-font-size: 22px !important;    /* 放大字體 */
+    font-size: 22px !important;
+    /* 放大字體 */
     font-weight: bold;
     text-decoration: none;
     transition: 0.3s;
@@ -1604,3 +1616,22 @@ font-size: 22px !important;    /* 放大字體 */
     /* 確保顏色與背景有對比 */
     transition: 0.3s;
 }
+
+/*影片設定*/
+.hero-video-container {
+    width: 100%;
+    height: 600px;           /* 👈 設定一個合適的高度，讓它不會佔滿整個螢幕 */
+    margin-top: 115px;       /* 👈 根據你的 Navbar 高度調整，避免被擋住 */
+    overflow: hidden;
+    background-color: #000;  /* 影片載入前顯示黑色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* 👈 關鍵！這會讓影片像背景圖一樣填滿，不縮放變形 */
+}
+
