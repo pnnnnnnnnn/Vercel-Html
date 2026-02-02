@@ -1044,6 +1044,11 @@ footer p {
         align-items: center;
     }
 
+    .hero-video-container {
+        margin-top: 85px;   /* 手機版 Navbar 較矮，縮小頂部間距 */
+        aspect-ratio: 16 / 9; /* 維持比例，也可以改成 4 / 3 讓手機版影片高一點 */
+    }
+
 }
 
 /* 446-457 商品logo調整 */
@@ -1618,20 +1623,26 @@ section {
 }
 
 /*影片設定*/
+/* 修改後的影片容器設定 */
 .hero-video-container {
     width: 100%;
-    height: 600px;           /* 👈 設定一個合適的高度，讓它不會佔滿整個螢幕 */
-    margin-top: 115px;       /* 👈 根據你的 Navbar 高度調整，避免被擋住 */
+    /* 移除固定 height: 600px; */
+    height: auto; 
+    
+    /* 設定影片比例 (例如 16:9) */
+    /* 這樣在手機上縮小時，高度會跟著等比例縮短 */
+    aspect-ratio: 16 / 9; 
+    
+    margin-top: 115px;      /* 確保不被 Navbar 擋住 */
+    margin-bottom: 0px;     /* 強制移除底部外邊距 */
     overflow: hidden;
-    background-color: #000;  /* 影片載入前顯示黑色 */
+    background-color: #000;
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .hero-video {
     width: 100%;
     height: 100%;
-    object-fit: cover;      /* 👈 關鍵！這會讓影片像背景圖一樣填滿，不縮放變形 */
+    object-fit: cover;      /* 填滿容器且不變形 */
 }
 
